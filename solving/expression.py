@@ -1,4 +1,4 @@
-class ExpressionHandler:
+class Expression:
     @staticmethod
     def counting_variables_of_expression(expression, variables, all_values):
         for i in range(len(expression)):
@@ -61,7 +61,7 @@ class ExpressionHandler:
         signs = ["!", "+", "*", "->", "==", ")", "("]
         try:
             if token in unique_values:
-                return ExpressionHandler.checking_variables(token)
+                return Expression.checking_variables(token)
             elif token in signs:
                 return True
             else:
@@ -87,7 +87,7 @@ class ExpressionHandler:
             print("I do not see any variables here...")
             return False
         for token in tokens:
-            if not ExpressionHandler.check(token, unique_values):
+            if not Expression.check(token, unique_values):
                 return False
-        return ExpressionHandler.comparing_number_of_brackets(expression) and ExpressionHandler.tokens_check(tokens,
-                                                                                                             unique_values)
+        return Expression.comparing_number_of_brackets(expression) and Expression.tokens_check(tokens,
+                                                                                               unique_values)

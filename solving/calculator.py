@@ -26,40 +26,20 @@ class LogicCalculator:
         second_value = stack_variables.pop()
         first_value = stack_variables.pop()
         if sign == "*":
-            return LogicCalculator.conjunction(first_value, second_value)
+            return first_value and second_value
         elif sign == "+":
-            return LogicCalculator.disjunction(first_value, second_value)
+            return first_value or second_value
         elif sign == "->":
-            return LogicCalculator.implication(first_value, second_value)
+            return not (first_value and not second_value)
         else:
-            return LogicCalculator.equivalence(first_value, second_value)
+            return first_value == second_value
 
     @staticmethod
     def execute_operation(stack_variables, sign):
         if sign == "!":
-            return LogicCalculator.inversion(stack_variables.pop())
+            return not stack_variables.pop()
         else:
             return LogicCalculator.binary_operation(stack_variables, sign)
-
-    @staticmethod
-    def conjunction(x1, x2):
-        return x1 and x2
-
-    @staticmethod
-    def disjunction(x1, x2):
-        return x1 or x2
-
-    @staticmethod
-    def inversion(x1: bool) -> bool:
-        return not x1
-
-    @staticmethod
-    def implication(x1, x2):
-        return not (x1 and not x2)
-
-    @staticmethod
-    def equivalence(x1: bool, x2: bool) -> bool:
-        return x1 == x2
 
 
 class Priority:

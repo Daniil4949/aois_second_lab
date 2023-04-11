@@ -1,4 +1,4 @@
-class TruthTableHandler:
+class Solver:
     @staticmethod
     def permutation(n):
         truth_table = []
@@ -54,7 +54,7 @@ class TruthTableHandler:
     @staticmethod
     def show_dpnf(truth_table, variables, expression_result):
         disjunction_result = ""
-        parts = TruthTableHandler.calculating_parts_PDNF(truth_table, variables, expression_result)
+        parts = Solver.calculating_parts_PDNF(truth_table, variables, expression_result)
         if len(parts) != 0:
             disjunction_result += parts[0]
             for i in range(1, len(parts)):
@@ -84,7 +84,7 @@ class TruthTableHandler:
     @staticmethod
     def print_pcnf(truth_table, variables, expression_result):
         disjunction = ""
-        function_parts = TruthTableHandler.calculating_parts_of_pcnf(truth_table, variables, expression_result)
+        function_parts = Solver.calculating_parts_of_pcnf(truth_table, variables, expression_result)
         if len(function_parts) != 0:
             disjunction += function_parts[0]
             for i in range(1, len(function_parts)):
@@ -150,17 +150,17 @@ class TruthTableHandler:
 
     @staticmethod
     def show_pdnf(truth_table, variables, result):
-        TruthTableHandler.show_dpnf(truth_table, variables, result)
-        TruthTableHandler.number_result_of_pdnf(truth_table, result)
+        Solver.show_dpnf(truth_table, variables, result)
+        Solver.number_result_of_pdnf(truth_table, result)
 
     @staticmethod
     def show_pcnf(truth_table, variables, result):
-        TruthTableHandler.print_pcnf(truth_table, variables, result)
-        TruthTableHandler.number_result_of_pcnf(truth_table, result)
+        Solver.print_pcnf(truth_table, variables, result)
+        Solver.number_result_of_pcnf(truth_table, result)
 
     @staticmethod
     def final_result(truth_table, variables, result):
-        TruthTableHandler.show_pdnf(truth_table, variables, result)
+        Solver.show_pdnf(truth_table, variables, result)
         print()
-        TruthTableHandler.show_pcnf(truth_table, variables, result)
-        TruthTableHandler.index(result)
+        Solver.show_pcnf(truth_table, variables, result)
+        Solver.index(result)
