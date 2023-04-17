@@ -12,7 +12,7 @@ def importance(sign):
     return ORDER[sign] if sign in ORDER else 0
 
 
-def getting_result(logic_values, variables, values, elements, another_stack_elements):
+def getting_value(logic_values, variables, values, elements, another_stack_elements):
     for value in logic_values:
         if value in variables:
             another_stack_elements.append(values[value])
@@ -37,14 +37,14 @@ def start_action(stack_variables, sign):
     return not stack_variables.pop if sign == "1" else logic(stack_variables, sign)
 
 
-def logic(stack_variables, sign):
+def logic(stack_variables, flag):
     second_element = stack_variables.pop()
     first_element = stack_variables.pop()
-    if sign == "*":
+    if flag == "*":
         return first_element and second_element
-    elif sign == "+":
+    elif flag == "+":
         return first_element or second_element
-    elif sign == "->":
+    elif flag == "->":
         return not (first_element and not second_element)
     else:
         return first_element == second_element

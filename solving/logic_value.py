@@ -1,21 +1,21 @@
 ELEMENTS = ["!", "+", "*", "->", "==", ")", "("]
 
 
-def tokens_function(expression, tokens, all_elements):
+def tokens_function(expression, tokens_list, all_elements):
     variable = 0
     i = 0
     while i < len(expression):
         if expression[i].isalpha():
-            tokens.append(all_elements[variable])
+            tokens_list.append(all_elements[variable])
             i += (len(all_elements[variable]) - 1)
             variable += 1
         elif expression[i] != ' ':
             if (expression[i] == '-' and expression[i + 1] == '>') or (
                     expression[i] == '=' and expression[i + 1] == '='):
-                tokens.append(expression[i:i + 2])
+                tokens_list.append(expression[i:i + 2])
                 i += 1
             else:
-                tokens.append(expression[i])
+                tokens_list.append(expression[i])
         i += 1
 
 
@@ -67,7 +67,7 @@ def valid_logic_value(values, tokens, only_values):
                                           only_values)
 
 
-def elements_in_expression(expression, variables, all_values):
+def elements_in_logic_val(expression, variables, all_values):
     for i in range(len(expression)):
         if expression[i].isalpha():
             var = 1

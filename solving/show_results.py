@@ -1,18 +1,18 @@
-from solving.solver import show_cpnf, result_cdnf, result_ccnf, show_ccnf, index
+from solving.solver import show_cpnf, result_cdnf, result_ccnf, show_ccnf, indexing_form
 
 
-def cdnf(table, elements, exp):
-    show_cpnf(table, elements, exp)
-    result_cdnf(table, exp)
+def cdnf(tabl, elements, exp):
+    show_cpnf(tabl, elements, exp)
+    result_cdnf(tabl, exp)
 
 
-def ccnf(table, elements, exp):
-    show_ccnf(table, elements, exp)
-    result_ccnf(table, exp)
+def ccnf(tabl, elements, exp):
+    show_ccnf(tabl, elements, exp)
+    result_ccnf(tabl, exp)
 
 
-def expression(table, elements, exp):
-    cdnf(table, elements, exp)
+def expression(tabl, elements, exp):
+    cdnf(tabl, elements, exp)
     print()
-    ccnf(table, elements, exp)
-    index(exp)
+    ccnf(tabl, elements, exp)
+    indexing_form(exp)
