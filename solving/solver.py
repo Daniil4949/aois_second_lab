@@ -1,37 +1,37 @@
 def changing(n):
-    truth_table = []
-    first_changing = [False] * n
-    truth_table.append(first_changing)
+    tabl = []
+    moving = [False] * n
+    tabl.append(moving)
     while True:
-        iteration = len(first_changing) - 1
-        current_changing = truth_table[-1].copy()
-        while iteration >= 0 and current_changing[iteration]:
-            iteration -= 1
-        if iteration < 0:
+        move = len(moving) - 1
+        cur_move = tabl[-1].copy()
+        while move >= 0 and cur_move[move]:
+            move -= 1
+        if move < 0:
             break
-        current_changing[iteration] = True
-        iteration += 1
-        while iteration < n:
-            current_changing[iteration] = False
-            iteration += 1
-        truth_table.append(current_changing)
-    return truth_table
+        cur_move[move] = True
+        move += 1
+        while move < n:
+            cur_move[move] = False
+            move += 1
+        tabl.append(cur_move)
+    return tabl
 
 
-def print_table(truth_table, variables, expression_result):
-    for var in variables:
+def show_table(tabl, elements, values):
+    for var in elements:
         print(f"{var}\t", end="")
     print("expr\tFi")
-    for i in range(len(truth_table)):
-        for j in range(len(truth_table[i])):
-            print("1\t" if truth_table[i][j] else "0\t", end="")
-        print("1\t" if expression_result[i] else "0\t", end="")
+    for i in range(len(tabl)):
+        for j in range(len(tabl[i])):
+            print("1\t" if tabl[i][j] else "0\t", end="")
+        print("1\t" if values[i] else "0\t", end="")
         print(i)
         print()
     print()
 
 
-def solving_pdnf(truth_table, variables, result):
+def getting_result_of_cndf(truth_table, variables, result):
     suitable_options = []
     function_parts = []
     for i in range(len(result)):
@@ -49,9 +49,9 @@ def solving_pdnf(truth_table, variables, result):
     return function_parts
 
 
-def show_dpnf(truth_table, variables, expression_result):
+def show_cpnf(truth_table, variables, expression_result):
     disjunction_result = ""
-    parts = solving_pdnf(truth_table, variables, expression_result)
+    parts = getting_result_of_cndf(truth_table, variables, expression_result)
     if len(parts) != 0:
         disjunction_result += parts[0]
         for i in range(1, len(parts)):
@@ -61,27 +61,27 @@ def show_dpnf(truth_table, variables, expression_result):
         print("Principal disjunction normal function doesn't exist\n")
 
 
-def calculating_parts_of_pcnf(truth_table, variables, expression_result):
-    suitable_options = []
-    function_parts = []
+def elements_of_ccnf(tabl, elements, expression_result):
+    convinient_elements = []
+    value_elements = []
     for i in range(len(expression_result)):
         if not expression_result[i]:
-            suitable_options.append(truth_table[i])
-    for i in range(len(suitable_options)):
+            convinient_elements.append(tabl[i])
+    for i in range(len(convinient_elements)):
         function_part = "("
-        for j in range(len(variables)):
-            if not suitable_options[i][j]:
-                function_part += variables[j] + "+"
+        for j in range(len(elements)):
+            if not convinient_elements[i][j]:
+                function_part += elements[j] + "+"
             else:
-                function_part += "(!" + variables[j] + ")+"
+                function_part += "(!" + elements[j] + ")+"
         function_part = function_part[:-1] + ")"
-        function_parts.append(function_part)
-    return function_parts
+        value_elements.append(function_part)
+    return value_elements
 
 
-def print_pcnf(truth_table, variables, expression_result):
+def show_ccnf(table, elements, expression_result):
     disjunction = ""
-    function_parts = calculating_parts_of_pcnf(truth_table, variables, expression_result)
+    function_parts = elements_of_ccnf(table, elements, expression_result)
     if len(function_parts) != 0:
         disjunction += function_parts[0]
         for i in range(1, len(function_parts)):
@@ -91,12 +91,12 @@ def print_pcnf(truth_table, variables, expression_result):
         print("Principal conjuction normal function doesn't exist\n")
 
 
-def result_of_pdnf(truthTable, expressionResult):
+def result_cdnf(table, value):
     suitable_options = []
     results = []
-    for i in range(len(expressionResult)):
-        if expressionResult[i]:
-            suitable_options.append(truthTable[i])
+    for i in range(len(value)):
+        if value[i]:
+            suitable_options.append(table[i])
     for i in range(len(suitable_options)):
         binary_result = ""
         for j in range(len(suitable_options[i])):
@@ -113,7 +113,7 @@ def result_of_pdnf(truthTable, expressionResult):
         print(result + ")\n")
 
 
-def result_of_pcnf(truth_table, result):
+def result_ccnf(truth_table, result):
     suitable_options = []
     results = []
     for i in range(len(result)):
@@ -139,25 +139,25 @@ def to_int(binary_value):
 
 
 def index(result):
-    index = 0
+    value = 0
     for i in range(len(result)):
         if result[i]:
-            index += pow(2, len(result) - 1 - i)
-    print("\nIndex Form:\ni = " + str(index))
+            value += pow(2, len(result) - 1 - i)
+    print("\nIndex Form:\ni = " + str(value))
 
 
-def show_pdnf(truth_table, variables, result):
-    show_dpnf(truth_table, variables, result)
-    result_of_pdnf(truth_table, result)
+def cdnf(truth_table, variables, result):
+    show_cpnf(truth_table, variables, result)
+    result_cdnf(truth_table, result)
 
 
-def show_pcnf(truth_table, variables, result):
-    print_pcnf(truth_table, variables, result)
-    result_of_pcnf(truth_table, result)
+def ccnf(truth_table, variables, result):
+    show_ccnf(truth_table, variables, result)
+    result_ccnf(truth_table, result)
 
 
-def final_result(truth_table, variables, result):
-    show_pdnf(truth_table, variables, result)
+def final_value(truth_table, variables, result):
+    cdnf(truth_table, variables, result)
     print()
-    show_pcnf(truth_table, variables, result)
+    ccnf(truth_table, variables, result)
     index(result)
