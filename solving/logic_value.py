@@ -1,21 +1,21 @@
 ELEMENTS = ["!", "+", "*", "->", "==", ")", "("]
 
 
-def tokens_function(expression, tokens_list, all_elements):
+def tokens_function(value, tokens_list, elements):
     variable = 0
     i = 0
-    while i < len(expression):
-        if expression[i].isalpha():
-            tokens_list.append(all_elements[variable])
-            i += (len(all_elements[variable]) - 1)
+    while i < len(value):
+        if value[i].isalpha():
+            tokens_list.append(elements[variable])
+            i += (len(elements[variable]) - 1)
             variable += 1
-        elif expression[i] != ' ':
-            if (expression[i] == '-' and expression[i + 1] == '>') or (
-                    expression[i] == '=' and expression[i + 1] == '='):
-                tokens_list.append(expression[i:i + 2])
+        elif value[i] != ' ':
+            if (value[i] == '-' and value[i + 1] == '>') or (
+                    value[i] == '=' and value[i + 1] == '='):
+                tokens_list.append(value[i:i + 2])
                 i += 1
             else:
-                tokens_list.append(expression[i])
+                tokens_list.append(value[i])
         i += 1
 
 
@@ -67,24 +67,24 @@ def valid_logic_value(values, tokens, only_values):
                                           only_values)
 
 
-def elements_in_logic_val(expression, variables, all_values):
-    for i in range(len(expression)):
-        if expression[i].isalpha():
+def elements_in_logic_val(element, elements, all_elements):
+    for i in range(len(element)):
+        if element[i].isalpha():
             var = 1
-            while i + var < len(expression) and expression[i + var].isdigit():
+            while i + var < len(element) and element[i + var].isdigit():
                 var += 1
-            if expression[i:i + var] not in variables:
-                variables.append(expression[i:i + var])
-            all_values.append(expression[i:i + var])
+            if element[i:i + var] not in elements:
+                elements.append(element[i:i + var])
+            all_elements.append(element[i:i + var])
 
 
 def hooks(expression):
     try:
-        opening_brackets = expression.count("(")
-        closing_brackets = expression.count(")")
-        if opening_brackets == closing_brackets:
+        first_hooks = expression.count("(")
+        second_hooks = expression.count(")")
+        if first_hooks == second_hooks:
             return True
-        elif opening_brackets > closing_brackets:
+        elif first_hooks > second_hooks:
             raise Exception("Incorrect. Symbol ')' is necessary here")
         else:
             raise Exception("Incorrect. Symbol ')' is not necessary here")
